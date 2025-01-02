@@ -1,0 +1,20 @@
+{
+	"id": 144698131,
+	"name": "[v2-prod] Pod Is Terminating Due To The CrashLoopBackOff",
+	"type": "query alert",
+	"query": "avg(last_5m):sum:kubernetes.containers.state.waiting{kube_namespace:default,reason:crashloopbackoff,cluster_name:cs-v2-prod-eksec2} by {pod_name} >= 1",
+	"message": "@slack-Regobs_Coinshift_Slack-alert-test\n@slack-Regobs_Coinshift_Slack-v2-prod-devops-alerts \n\n```\n{{#is_alert}} **Message:** The pod `{{pod_name.name}}` is terminating due to crashloopbackoff. {{/is_alert}} {{#is_alert_recovery}} Things are back to normal! {{/is_alert_recovery}}\n```",
+	"tags": [
+		"env:v2-prod"
+	],
+	"options": {
+		"thresholds": {
+			"critical": 1
+		},
+		"notify_audit": false,
+		"include_tags": false,
+		"new_group_delay": 60,
+		"notification_preset_name": "hide_all"
+	},
+	"priority": null
+}
