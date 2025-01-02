@@ -1,0 +1,21 @@
+{
+	"id": 141643666,
+	"name": "[v2-prod] Pod Restart Monitoring Alert",
+	"type": "query alert",
+	"query": "avg(last_5m):sum:kubernetes_state.container.restarts{kube_namespace:default, cluster_name:cs-v2-prod-eksec2} by {pod_name} > 3",
+	"message": "```   \n{{#is_alert}}\n **Message:** The pod `{{pod_name.name}}` is restarting.\n {{/is_alert}} \n{{#is_alert_recovery}} \nThings are back to normal! \n{{/is_alert_recovery}}\n```\n@slack-Regobs_Coinshift_Slack-alert-test\n@slack-Regobs_Coinshift_Slack-v2-prod-devops-alerts",
+	"tags": [
+		"env:v2-prod"
+	],
+	"options": {
+		"thresholds": {
+			"critical": 3
+		},
+		"notify_audit": false,
+		"threshold_windows": null,
+		"include_tags": false,
+		"new_group_delay": 60,
+		"notification_preset_name": "hide_all"
+	},
+	"priority": null
+}
